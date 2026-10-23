@@ -167,7 +167,7 @@ venv.bak/
 .ropeproject
 
 # mkdocs/Zensical documentation
-/site
+# /site
 
 # mypy
 .mypy_cache/
@@ -224,4 +224,4 @@ node_modules/
 .next/
 out/
 .pnpm-store/
-site/
+# site/
