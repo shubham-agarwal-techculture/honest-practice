@@ -1,0 +1,163 @@
+site_name: Honest Practice
+site_description: Reference for the Honest Practice learning system.
+repo_url: https://github.com/shubham-agarwal-techculture/honest-practice
+docs_dir: docs
+site_dir: site
+strict: true
+
+theme:
+  name: material
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+    - search.suggest
+    - toc.follow
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+
+nav:
+  - Home: index.md
+  - Start here:
+      - Overview: 00-start-here/index.md
+      - Quickstart: 00-start-here/quickstart.md
+      - Reading map: 00-start-here/reading-map.md
+  - Product:
+      - Overview: 01-product/index.md
+      - Vision: 01-product/vision.md
+      - Personas: 01-product/personas.md
+      - Journeys: 01-product/journeys.md
+      - Functional requirements: 01-product/functional-requirements.md
+      - Non-functional requirements: 01-product/non-functional-requirements.md
+      - Scope: 01-product/scope.md
+      - Roadmap: 01-product/roadmap.md
+  - UX design:
+      - Overview: 02-ux-design/index.md
+      - Principles: 02-ux-design/principles.md
+      - Concept: 02-ux-design/concept.md
+      - Information architecture: 02-ux-design/information-architecture.md
+      - Design system: 02-ux-design/design-system.md
+      - Imagery: 02-ux-design/imagery.md
+      - Accessibility: 02-ux-design/accessibility.md
+      - Writing voice: 02-ux-design/writing-voice.md
+  - Architecture:
+      - Overview: 03-architecture/index.md
+      - Module boundaries: 03-architecture/module-boundaries.md
+      - C4 model: 03-architecture/c4.md
+      - Data model: 03-architecture/data-model.md
+      - Design patterns: 03-architecture/design-patterns.md
+      - Technology choices: 03-architecture/technology-choices.md
+      - Decisions:
+          - Index: 03-architecture/adr/index.md
+          - 0001 Stack: 03-architecture/adr/0001-stack.md
+          - 0002 Package boundaries: 03-architecture/adr/0002-package-boundaries.md
+          - 0003 Postgres queue: 03-architecture/adr/0003-postgres-queue.md
+          - 0004 OpenAPI client: 03-architecture/adr/0004-openapi-client.md
+          - 0005 Documentation: 03-architecture/adr/0005-documentation.md
+          - 0006 Memory and uniqueness: 03-architecture/adr/0006-memory-versus-uniqueness.md
+  - Workflows:
+      - Overview: 04-workflows/index.md
+      - Daily run: 04-workflows/daily-run.md
+      - Manual run: 04-workflows/manual-run.md
+      - Source crawling: 04-workflows/source-crawling.md
+      - Uniqueness: 04-workflows/uniqueness.md
+      - Learning session: 04-workflows/learning-session.md
+      - Task creation: 04-workflows/task-creation.md
+      - Scheduling: 04-workflows/scheduling.md
+      - History: 04-workflows/history.md
+      - Failure and retry: 04-workflows/failure-and-retry.md
+  - Agents and AI:
+      - Overview: 05-agents-and-ai/index.md
+      - Cursor SDK: 05-agents-and-ai/cursor-sdk.md
+      - Prompts: 05-agents-and-ai/prompts.md
+      - Memory: 05-agents-and-ai/memory.md
+      - Uniqueness: 05-agents-and-ai/uniqueness.md
+      - Evaluation: 05-agents-and-ai/evaluation.md
+      - Safety and cost: 05-agents-and-ai/safety-and-cost.md
+  - Domain:
+      - Overview: 06-domain/index.md
+      - Glossary: 06-domain/glossary.md
+      - Entities: 06-domain/entities.md
+      - Pattern taxonomy: 06-domain/pattern-taxonomy.md
+  - Extending:
+      - Overview: 07-extending/index.md
+      - Task type: 07-extending/task-type.md
+      - Source adapter: 07-extending/source-adapter.md
+      - Memory provider: 07-extending/memory-provider.md
+      - Generator: 07-extending/generator.md
+      - Notifier: 07-extending/notifier.md
+      - UI page: 07-extending/ui-page.md
+      - Design token: 07-extending/design-token.md
+      - System job: 07-extending/system-job.md
+  - Code quality:
+      - Overview: 08-code-quality/index.md
+      - Coding standards: 08-code-quality/coding-standards.md
+      - Commenting: 08-code-quality/commenting.md
+      - Errors: 08-code-quality/errors.md
+      - Testing: 08-code-quality/testing.md
+      - Review checklist: 08-code-quality/review-checklist.md
+      - Dependencies: 08-code-quality/dependencies.md
+  - Operations:
+      - Overview: 09-operations/index.md
+      - Setup: 09-operations/setup.md
+      - Configuration: 09-operations/configuration.md
+      - Deployment: 09-operations/deployment.md
+      - Backups: 09-operations/backups.md
+      - Monitoring: 09-operations/monitoring.md
+      - Troubleshooting: 09-operations/troubleshooting.md
+      - Cost: 09-operations/cost.md
+      - Worker runbook: 09-operations/worker-runbook.md
+  - Reference:
+      - Overview: 10-reference/index.md
+      - HTTP API: 10-reference/api.md
+      - CLI: 10-reference/cli.md
+      - Environment: 10-reference/environment.md
+      - Database: 10-reference/database.md
+      - Events: 10-reference/events.md
+      - Task schema: 10-reference/task-schema.md
+  - Security and privacy:
+      - Overview: 11-security-privacy/index.md
+      - API keys: 11-security-privacy/api-keys.md
+      - Retention: 11-security-privacy/retention.md
+      - Threat model: 11-security-privacy/threat-model.md
+  - Project:
+      - Contributing: CONTRIBUTING.md
+      - Changelog: CHANGELOG.md
+      - FAQ: FAQ.md

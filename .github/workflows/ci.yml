@@ -1,0 +1,58 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: uv sync --directory backend --group dev --frozen
+      - name: Lint
+        run: uv run --directory backend ruff check src tests
+      - name: Format
+        run: uv run --directory backend ruff format --check src tests
+      - name: Types
+        run: uv run --directory backend mypy
+      - name: Import boundaries
+        run: uv run --directory backend lint-imports
+      - name: Tests
+        run: uv run --directory backend pytest
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.21.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Lint, types, format, build
+        run: pnpm lint && pnpm typecheck && pnpm format:check && pnpm build
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: uv sync --directory backend --group dev --frozen
+      - name: Build the docs site
+        run: uv run --directory backend mkdocs build --strict --config-file ../mkdocs.yml

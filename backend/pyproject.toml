@@ -1,0 +1,107 @@
+[project]
+name = "honest-practice"
+version = "0.1.0"
+description = "Daily DSA and system design practice, researched from the web and kept unique."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [{ name = "shubham-agarwal-techculture" }]
+dependencies = [
+    "fastapi>=0.115",
+    "psycopg[binary]>=3.2",
+    "pydantic>=2.10",
+    "pydantic-settings>=2.6",
+    "sqlalchemy>=2.0",
+    "uvicorn[standard]>=0.32",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28",
+    "import-linter>=2.1",
+    "mkdocs-material>=9.5",
+    "mypy>=1.13",
+    "pytest>=8.3",
+    "ruff>=0.8",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/honest_practice"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "D", "ANN"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D", "ANN"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["honest_practice"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["honest_practice"]
+mypy_path = "src"
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = [
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated:starlette.exceptions.StarletteDeprecationWarning",
+]
+
+[tool.importlinter]
+root_packages = ["honest_practice"]
+
+[[tool.importlinter.contracts]]
+name = "Core stays free of I/O and adapters"
+type = "forbidden"
+source_modules = ["honest_practice.core"]
+forbidden_modules = [
+    "honest_practice.agents",
+    "honest_practice.sources",
+    "honest_practice.memory",
+    "honest_practice.uniqueness",
+    "honest_practice.tasks",
+    "honest_practice.db",
+    "honest_practice.api",
+    "honest_practice.worker",
+    "honest_practice.cli",
+]
+
+[[tool.importlinter.contracts]]
+name = "Adapters do not depend on delivery layers"
+type = "forbidden"
+source_modules = [
+    "honest_practice.agents",
+    "honest_practice.sources",
+    "honest_practice.memory",
+    "honest_practice.uniqueness",
+    "honest_practice.db",
+]
+forbidden_modules = [
+    "honest_practice.api",
+    "honest_practice.worker",
+    "honest_practice.cli",
+]
+
+[[tool.importlinter.contracts]]
+name = "API and worker do not import each other"
+type = "independence"
+modules = [
+    "honest_practice.api",
+    "honest_practice.worker",
+]

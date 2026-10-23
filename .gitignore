@@ -218,3 +218,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Honest Practice
+node_modules/
+.next/
+out/
+.pnpm-store/
+site/

@@ -4,7 +4,7 @@ overview: "Build \"honest-practice\": an agentic learning system on the Cursor P
 todos:
   - id: p0-foundations
     content: "Phase 0: Monorepo scaffolding, tooling, Docker Compose, settings model, CI, docs skeleton, initial ADRs"
-    status: pending
+    status: completed
   - id: p1-domain-data
     content: "Phase 1: Domain entities, pattern content schema, SQLAlchemy models, Alembic migrations, repositories"
     status: pending

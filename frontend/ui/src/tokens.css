@@ -1,0 +1,17 @@
+/*
+ * Paper and ink for Honest Practice.
+ * Keep these values equal to the constants in tokens.ts until Phase 7.
+ */
+:root {
+  --hp-paper: #f5f1e8;
+  --hp-raised: #ece5d6;
+  --hp-ink: #22201c;
+  --hp-graphite: #5e5a52;
+  --hp-rule: #d9d0be;
+  --hp-prussian: #1f4e79;
+  --hp-oxide: #9a4330;
+  --hp-moss: #4f6f52;
+  --hp-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", serif;
+  --hp-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --hp-mono: "IBM Plex Mono", "Consolas", monospace;
+}

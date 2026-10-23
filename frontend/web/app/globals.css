@@ -1,0 +1,17 @@
+@import "@honest-practice/ui/tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  background: var(--hp-paper);
+}
+
+body {
+  min-height: 100vh;
+  color: var(--hp-ink);
+  background-color: var(--hp-paper);
+  background-image: radial-gradient(rgba(34, 32, 28, 0.035) 0.6px, transparent 0.6px);
+  background-size: 3px 3px;
+}

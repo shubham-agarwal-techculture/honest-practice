@@ -1,0 +1,20 @@
+{
+  "name": "honest-practice",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @honest-practice/web dev",
+    "build": "pnpm --filter @honest-practice/web build",
+    "start": "pnpm --filter @honest-practice/web start",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": "10.21.0"
+  },
+  "packageManager": "pnpm@10.21.0"
+}

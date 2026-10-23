@@ -1,0 +1,76 @@
+name: honest-practice
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: honest_practice
+      POSTGRES_PASSWORD: honest_practice
+      POSTGRES_DB: honest_practice
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U honest_practice -d honest_practice"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ../backend
+    env_file:
+      - path: ../.env
+        required: false
+    environment:
+      HP_ENVIRONMENT: local
+      HP_DATABASE_URL: postgresql+psycopg://honest_practice:honest_practice@postgres:5432/honest_practice
+      HP_HEALTH_CHECK_DATABASE: "true"
+      HP_CORS_ORIGINS: '["http://localhost:3000"]'
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  worker:
+    build:
+      context: ../backend
+    env_file:
+      - path: ../.env
+        required: false
+    command: ["python", "-m", "honest_practice.worker"]
+    environment:
+      HP_ENVIRONMENT: local
+      HP_DATABASE_URL: postgresql+psycopg://honest_practice:honest_practice@postgres:5432/honest_practice
+      HP_WORKER_HEARTBEAT_SECONDS: "30"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ../frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  pgdata:
